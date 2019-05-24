@@ -1,0 +1,20 @@
+default:
+  suites:
+    pizzashop_domain_account_settings:
+      contexts:
+        - Quintanilhar\PizzaShop\Test\Behat\Context\Domain\CookingContext
+      filters:
+        tags: "@cooking"
+
+  calls:
+    error_reporting: 7
+
+  formatters:
+    pretty:
+      verbose: true
+      paths: false
+      snippets: false
+
+  gherkin:
+    filters:
+      tags: "~@todo"

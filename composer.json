@@ -1,0 +1,29 @@
+{
+    "name": "quintanilhar/pizzashop",
+    "description": "Pizza Shop in PHP",
+    "type": "project",
+    "require": {
+        "php": "^7.2"
+    },
+    "authors": [
+        {
+            "name": "Ricardo Quintanilha",
+            "email": "ricardo.aquintanilha@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "behat/behat": "^3.5",
+        "phpunit/phpunit": "^8.1",
+        "webmozart/assert": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quintanilhar\\PizzaShop\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Quintanilhar\\PizzaShop\\Test\\": "test/"
+        }
+    }
+}
