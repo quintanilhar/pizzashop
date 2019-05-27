@@ -2,7 +2,7 @@
 
 namespace Quintanilhar\PizzaShop\Domain;
 
-interface PizzaRepository
+interface RecipeRepository
 {
-    public function findRecipeOfPizzaId(string $pizzaId): Recipe;
+    public function recipeOfPizzaId(string $pizzaId): ?Recipe;
 }

@@ -4,8 +4,24 @@ namespace Quintanilhar\PizzaShop\Domain;
 
 class CookingService implements CookPizza
 {
-    public function cookPizza(string $flavourId): Pizza
+    /**
+     * @var RecipeRepository
+     */
+    private $recipeRepository;
+
+    public function __construct(RecipeRepository $recipeRepository)
     {
-        return new Pizza(['mozzarella', 'pepperoni']);
+        $this->recipeRepository = $recipeRepository;
+    }
+
+    public function cookPizza(string $pizzaId): Pizza
+    {
+        $recipe = $this->recipeRepository->recipeOfPizzaId($pizzaId);
+
+        if (null === $recipe) {
+            throw new UnknownPizza($pizzaId);
+        }
+
+        return Pizza::fromRecipe($recipe);
     }
 }

@@ -15,4 +15,9 @@ class Pizza
     {
         return $this->toppings;
     }
+
+    public static function fromRecipe(Recipe $recipe): Pizza
+    {
+        return new static($recipe->toppings());
+    }
 }
