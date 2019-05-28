@@ -13,6 +13,9 @@
         <testsuite name="Unit">
             <directory suffix="Test.php">test/Unit</directory>
         </testsuite>
+        <testsuite name="Extension">
+            <directory suffix="Test.php">lib/php-extension/test</directory>
+        </testsuite>
     </testsuites>
 
     <filter>

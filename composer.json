@@ -3,7 +3,8 @@
     "description": "Pizza Shop in PHP",
     "type": "project",
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ramsey/uuid": "^3.8"
     },
     "authors": [
         {
@@ -18,12 +19,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Quintanilhar\\PizzaShop\\": "src/"
+            "Quintanilhar\\PizzaShop\\": "src/",
+            "Quintanilhar\\PhpExtension\\": "lib/php-extension/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Quintanilhar\\PizzaShop\\Test\\": "test/"
+            "Quintanilhar\\PizzaShop\\Test\\": "test/",
+            "Quintanilhar\\PhpExtension\\Test\\": "lib/php-extension/test/"
         }
     }
 }
