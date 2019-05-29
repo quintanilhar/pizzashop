@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Quintanilhar\PizzaShop\Domain;
+namespace Quintanilhar\PizzaShop\Component\Cooking\Domain;
 
 use InvalidArgumentException;
 

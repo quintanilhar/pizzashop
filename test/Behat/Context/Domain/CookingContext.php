@@ -3,57 +3,43 @@
 namespace Quintanilhar\PizzaShop\Test\Behat\Context\Domain;
 
 use Behat\Behat\Context\Context;
-use Quintanilhar\PizzaShop\Domain\CookingService;
-use Quintanilhar\PizzaShop\Domain\Pizza;
-use Quintanilhar\PizzaShop\Domain\Recipe;
-use Quintanilhar\PizzaShop\Domain\RecipeRepository;
-use Quintanilhar\PizzaShop\Infrastructure\InMemoryRecipeRepository;
+use Quintanilhar\PizzaShop\Component\Cooking\Application\CookingService;
+use Quintanilhar\PizzaShop\Component\Cooking\Domain\Pizza;
+use Quintanilhar\PizzaShop\Test\Behat\Service\SharedStorage;
 use Webmozart\Assert\Assert;
 
 class CookingContext implements Context
 {
     /**
-     * @var RecipeRepository
+     * @When I cook it
      */
-    private $recipeRepository;
-
-    /**
-     * @var Recipe
-     */
-    private $recipe;
-
-    /**
-     * @var Pizza
-     */
-    private $pizza;
-
-    /**
-     * @Given the shop has a :pizza pizza with the toppings :toppings in the menu
-     */
-    public function theShopHasAPizzaWithTheToppingsInTheMenu($pizza, $toppings)
+    public function iCookAPizza()
     {
-        $this->recipe = new Recipe(strtolower($pizza), explode(',', $toppings));
+        $storage = SharedStorage::instance();
 
-        $this->recipeRepository = new InMemoryRecipeRepository(
-            [$this->recipe->recipeId() => $this->recipe]
-        );
+        /** @var Pizza $requestedPizza */
+        $requestedPizza = $storage->get('pizza');
+
+        /** @var \Quintanilhar\PizzaShop\Component\Cooking\Domain\PizzaRepository $pizzaRepository */
+        $pizzaRepository = $storage->get('pizzaRepository');
+
+        $cookingService = new CookingService($pizzaRepository);
+
+        $pizza = $cookingService->cookPizza($requestedPizza->pizzaId()->__toString());
+
+        $storage->set('cookedPizza', $pizza);
     }
 
     /**
-     * @When I cook a :pizza pizza
+     * @Then it should be cooked following its recipe
      */
-    public function iPrepareAPizza($pizza)
+    public function itShouldBeCookedFollowingItsRecipe()
     {
-        $cookingService = new CookingService($this->recipeRepository);
+        $storage = SharedStorage::instance();
 
-        $this->pizza = $cookingService->cookPizza(strtolower($pizza));
-    }
+        $requestedPizza = $storage->get('pizza');
+        $cookedPizza = $storage->get('cookedPizza');
 
-    /**
-     * @Then it should be prepared following the recipe
-     */
-    public function itShouldBePreparedFollowingTheRecipe()
-    {
-        Assert::eq($this->recipe->toppings(), $this->pizza->toppings());
+        Assert::eq($requestedPizza->toppings(), $cookedPizza->toppings());
     }
 }

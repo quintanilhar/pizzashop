@@ -6,5 +6,5 @@ Feature: Cooking Pizza
 
   Scenario: Cooking a pizza following an existing recipe
     Given the shop has a "Pepperoni" pizza with the toppings "mozzarella,pepperoni" in the menu
-    When I cook a "Pepperoni" pizza
-    Then it should be prepared following the recipe
+    When I cook it
+    Then it should be cooked following its recipe

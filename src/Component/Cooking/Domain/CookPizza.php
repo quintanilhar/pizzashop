@@ -1,6 +1,6 @@
 <?php
 
-namespace Quintanilhar\PizzaShop\Domain;
+namespace Quintanilhar\PizzaShop\Component\Cooking\Domain;
 
 interface CookPizza
 {

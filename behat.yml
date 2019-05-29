@@ -1,7 +1,8 @@
 default:
   suites:
-    pizzashop_domain_account_settings:
+    pizzashop_domain_cooking:
       contexts:
+        - Quintanilhar\PizzaShop\Test\Behat\Context\Setup\PizzaContext
         - Quintanilhar\PizzaShop\Test\Behat\Context\Domain\CookingContext
       filters:
         tags: "@cooking"
