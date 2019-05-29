@@ -7,6 +7,13 @@ default:
       filters:
         tags: "@cooking"
 
+    pizzashop_domain_order:
+      contexts:
+        - Quintanilhar\PizzaShop\Test\Behat\Context\Setup\PizzaContext
+        - Quintanilhar\PizzaShop\Test\Behat\Context\Domain\OrderContext
+      filters:
+        tags: "@order"
+
   calls:
     error_reporting: 7
 
