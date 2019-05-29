@@ -22,9 +22,13 @@ class PizzaContext implements Context
 
         SharedStorage::instance()->set('pizza', $pizza);
 
+        $pizzaRepository = new InMemoryPizzaRepository();
+
+        $pizzaRepository->save($pizza);
+
         SharedStorage::instance()->set(
             'pizzaRepository',
-            new InMemoryPizzaRepository([$pizza->pizzaId()->__toString() => $pizza])
+            $pizzaRepository
         );
     }
 }

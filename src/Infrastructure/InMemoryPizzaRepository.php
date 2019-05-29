@@ -12,12 +12,7 @@ class InMemoryPizzaRepository implements PizzaRepository
     /**
      * @var Pizza[]
      */
-    private $pizzas;
-
-    public function __construct(array $pizzas)
-    {
-        $this->pizzas = $pizzas;
-    }
+    private $pizzas = [];
 
     public function nextIdentity(): PizzaId
     {
@@ -29,4 +24,8 @@ class InMemoryPizzaRepository implements PizzaRepository
         return $this->pizzas[$pizzaId] ?? null;
     }
 
+    public function save(Pizza $pizza): void
+    {
+        $this->pizzas[$pizza->pizzaId()->__toString()] = $pizza;
+    }
 }

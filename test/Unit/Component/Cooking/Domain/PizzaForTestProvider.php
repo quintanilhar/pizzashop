@@ -11,6 +11,7 @@ trait PizzaForTestProvider
     {
         return new Pizza(
             new PizzaId('c72a59b2-c3ce-41a4-97de-cfe20ab13a8b'),
+            'Pepperoni',
             ['mozzarella', 'pepperoni']
         );
     }
@@ -19,6 +20,7 @@ trait PizzaForTestProvider
     {
         return new Pizza(
             new PizzaId('c72a59b2-c3ce-41a4-97de-cfe20ab13a8b'),
+            $name,
             $toppings
         );
     }

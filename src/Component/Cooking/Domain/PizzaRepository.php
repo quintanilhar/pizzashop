@@ -7,4 +7,6 @@ interface PizzaRepository
     public function nextIdentity(): PizzaId;
 
     public function pizzaOfId(string $pizzaId): ?Pizza;
+
+    public function save(Pizza $pizza): void;
 }

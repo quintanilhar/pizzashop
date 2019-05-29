@@ -1,6 +1,6 @@
 <?php
 
-namespace Quintanilhar\PizzaShop\Domain;
+namespace Quintanilhar\PizzaShop\Test\Unit\Component\Cooking\Application;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
