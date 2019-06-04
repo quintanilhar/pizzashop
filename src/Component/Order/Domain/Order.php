@@ -3,6 +3,7 @@
 namespace Quintanilhar\PizzaShop\Component\Order\Domain;
 
 use Quintanilhar\PizzaShop\Domain\Uuid;
+use Quintanilhar\PizzaShop\SharedKernel\Domain\DomainEventPublisher;
 use Webmozart\Assert\Assert;
 
 class Order
@@ -41,6 +42,16 @@ class Order
         $this->item = new Item($id, $name, $price);
 
         $this->total = $price;
+    }
+
+    public function place()
+    {
+        DomainEventPublisher::instance()->publish(
+            new OrderPlaced(
+                $this->orderId,
+                $this->item->id()
+            )
+        );
     }
 
     private function setOrderId(OrderId $orderId): void

@@ -37,6 +37,8 @@ class OrderService implements OrderPizza
             10
         );
 
+        $order->place();
+
         $this->orderRepository->save($order);
 
         return $order;

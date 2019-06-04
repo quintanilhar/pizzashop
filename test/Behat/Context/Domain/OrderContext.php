@@ -6,12 +6,45 @@ use Behat\Behat\Context\Context;
 use Quintanilhar\PizzaShop\Component\Cooking\Domain\Pizza;
 use Quintanilhar\PizzaShop\Component\Order\Application\OrderService;
 use Quintanilhar\PizzaShop\Component\Order\Domain\Order;
+use Quintanilhar\PizzaShop\Component\Order\Domain\OrderPlaced;
 use Quintanilhar\PizzaShop\Infrastructure\InMemoryOrderRepository;
+use Quintanilhar\PizzaShop\SharedKernel\Domain\DomainEvent;
+use Quintanilhar\PizzaShop\SharedKernel\Domain\DomainEventPublisher;
+use Quintanilhar\PizzaShop\SharedKernel\Domain\DomainEventSubscriber;
 use Quintanilhar\PizzaShop\Test\Behat\Service\SharedStorage;
 use Webmozart\Assert\Assert;
 
 class OrderContext implements Context
 {
+    /** @var DomainEventSubscriber */
+    private $subscriber;
+
+    /**
+     * @BeforeScenario
+     */
+    public function setupSubscribers()
+    {
+        $this->subscriber = new class implements DomainEventSubscriber {
+            private $event;
+
+            public function handleEvent(DomainEvent $event): void
+            {
+                $this->event = $event;
+            }
+
+            public function subscribedToEventType(): string
+            {
+                return OrderPlaced::class;
+            }
+
+            public function event()
+            {
+                return $this->event;
+            }
+        };
+
+        DomainEventPublisher::instance()->subscribe($this->subscriber);
+    }
     /**
      * @When I order a :pizza pizza
      */
@@ -60,6 +93,6 @@ class OrderContext implements Context
      */
     public function aRequestShouldBeSetToThePizzaioloToCookThePizza()
     {
-        // Event listener
+        Assert::isInstanceOf($this->subscriber->event(), OrderPlaced::class);
     }
 }

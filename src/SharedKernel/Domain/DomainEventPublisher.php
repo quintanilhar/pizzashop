@@ -41,7 +41,6 @@ class DomainEventPublisher
                 continue;
             }
 
-            /** @var  $subscriber */
             array_map(
                 function (DomainEventSubscriber $subscriber) use ($event) {
                     $subscriber->handleEvent($event);
